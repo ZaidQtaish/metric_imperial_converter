@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Metric/Imperial Converter</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./public/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- <section>
+      <h3>Example usage</h3>
+      <code>/api/convert?input=4gal</code><br>
+      <code>/api/convert?input=1/2km</code><br>
+      <code>/api/convert?input=5.4/3lbs</code><br>
+      <code>/api/convert?input=kg</code><br>
+      <h3>Example return</h3>
+      <code>{ initNum: 3.1, initUnit: 'mi', returnNum: 4.98895, returnUnit: 'km', string: '3.1 miles converts to 4.98895 kilometers' }</code>
+    </section> -->
+  <div class='ui'>
+    <div class="title">
+      <h2>Metric/Imperial Converter</h2>
+      <i class="fa-solid fa-mug-hot fa-xl"></i>
+    </div>
+    <form id="convertForm" class="border">
+      <input type="text" id="convertField" name="input" placeholder="3.1gal" style="width: 200px">
+      <input id="convert" type="submit" value='Convert'>
+    </form>
+    <p id='result'></p>
+    <!-- <code id='jsonResult'></code> -->
+  </div>
+
+
+
+
+
+
+  <!-- Your web-app is https, so your scripts need to be too -->
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+    integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $('#convertForm').submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+          url: '/api/convert',
+          type: 'get',
+          data: $('#convertForm').serialize(),
+          success: function (data) {
+            $('#result').text(data.string || data.error);
+            $('#jsonResult').text(JSON.stringify(data));
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
