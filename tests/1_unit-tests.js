@@ -5,7 +5,7 @@ const ConvertHandler = require('../controllers/convertHandler.js');
 let convertHandler = new ConvertHandler();
 
 suite('Unit Tests', () => {
-    test('ConverHandler should correctly read a whole number input.', () => {
+    test('ConvertHandler should correctly read a whole number input.', () => {
         const num = convertHandler.getNum('5km');
         assert.equal(num, 5);
     });
@@ -42,6 +42,12 @@ suite('Unit Tests', () => {
         assert.equal(convertHandler.getUnit('5mi'), 'mi');
         assert.equal(convertHandler.getUnit('5lbs'), 'lbs');
         assert.equal(convertHandler.getUnit('5kg'), 'kg');
+        assert.equal(convertHandler.getUnit('5oz'), 'oz');
+        assert.equal(convertHandler.getUnit('5ml'), 'ml');
+        assert.equal(convertHandler.getUnit('5in'), 'in');
+        assert.equal(convertHandler.getUnit('5ft'), 'ft');
+        assert.equal(convertHandler.getUnit('5m'), 'm');
+        assert.equal(convertHandler.getUnit('5cm'), 'cm');
     });
 
     test('ConvertHandler should correctly return an error for an invalid input unit.', () => {
@@ -55,6 +61,12 @@ suite('Unit Tests', () => {
         assert.equal(convertHandler.getReturnUnit('lbs'), 'kg');
         assert.equal(convertHandler.getReturnUnit('mi'), 'km');
         assert.equal(convertHandler.getReturnUnit('kg'), 'lbs');
+        assert.equal(convertHandler.getReturnUnit('oz'), 'ml');
+        assert.equal(convertHandler.getReturnUnit('ml'), 'oz');
+        assert.equal(convertHandler.getReturnUnit('in'), 'cm');
+        assert.equal(convertHandler.getReturnUnit('cm'), 'in');
+        assert.equal(convertHandler.getReturnUnit('ft'), 'm');
+        assert.equal(convertHandler.getReturnUnit('m'), 'ft');
     });
 
     test('ConvertHandler should correctly return the spelled-out string unit for each valid input unit.', () => {
@@ -64,6 +76,12 @@ suite('Unit Tests', () => {
         assert.equal(convertHandler.spellOutUnit('lbs'), 'pounds');
         assert.equal(convertHandler.spellOutUnit('kg'), 'kilograms');
         assert.equal(convertHandler.spellOutUnit('mi'), 'miles');
+        assert.equal(convertHandler.spellOutUnit('oz'), 'ounces');
+        assert.equal(convertHandler.spellOutUnit('ml'), 'milliliters');
+        assert.equal(convertHandler.spellOutUnit('in'), 'inches');
+        assert.equal(convertHandler.spellOutUnit('ft'), 'feet');
+        assert.equal(convertHandler.spellOutUnit('m'), 'meters');
+        assert.equal(convertHandler.spellOutUnit('cm'), 'centimeters');
     });
 
     test('ConvertHandler should correctly convert gal to L.', () => {
@@ -94,5 +112,36 @@ suite('Unit Tests', () => {
     test('ConvertHandler should correctly convert kg to lbs.', () => {
         const result = convertHandler.convert(5, 'kg');
         assert.equal(result, 11.02312);
+    });
+
+    // New tests for additional units:
+    test('ConvertHandler should correctly convert oz to ml.', () => {
+        const result = convertHandler.convert(5, 'oz');
+        assert.equal(result, 147.8675);
+    });
+
+    test('ConvertHandler should correctly convert ml to oz.', () => {
+        const result = convertHandler.convert(5, 'ml');
+        assert.equal(result, 0.16907);
+    });
+
+    test('ConvertHandler should correctly convert in to cm.', () => {
+        const result = convertHandler.convert(5, 'in');
+        assert.equal(result, 12.70000);
+    });
+
+    test('ConvertHandler should correctly convert cm to in.', () => {
+        const result = convertHandler.convert(5, 'cm');
+        assert.equal(result, 1.96850);
+    });
+
+    test('ConvertHandler should correctly convert ft to m.', () => {
+        const result = convertHandler.convert(5, 'ft');
+        assert.equal(result, 1.52400);
+    });
+
+    test('ConvertHandler should correctly convert m to ft.', () => {
+        const result = convertHandler.convert(5, 'm');
+        assert.equal(result, 16.40420);
     });
 });
